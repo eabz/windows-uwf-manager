@@ -1,31 +1,45 @@
 # Windows UWF Manager
 
-## Overview
 A simple, modern GUI application to manage the **Unified Write Filter (UWF)** on Windows IoT/Enterprise.
-This application allows a user to "Lock" the system (enable UWF) so changes are discarded on reboot, or "Unlock" the system (disable UWF) to make permanent changes.
+This application allows administrators to easily "Lock" (enable UWF) or "Unlock" (disable UWF) the system, ensuring data persistence control with a single click.
 
 ## Prerequisites
-1. **Windows 10/11 Enterprise, Education, or IoT Enterprise**.
-   - *Note*: UWF is **not** available on Windows Home or Pro.
-2. **UWF Feature Installed**.
-   - Enable via "Turn Windows features on or off" > "Device Lockdown" > "Unified Write Filter".
-   - Or run: `dism /online /enable-feature /featurename:Client-UnifiedWriteFilter /all`
-3. **.NET 8 Runtime** (or the SDK to build).
+
+1. **Supported OS**: Windows 10/11 Enterprise, Education, or IoT Enterprise.
+   * *Note*: UWF is not available on Windows Home or Pro editions.
+2. **UWF Feature Enabled**:
+   * Run the following command as Administrator to install the feature:
+     ```powershell
+     dism /online /enable-feature /featurename:Client-UnifiedWriteFilter /all
+     ```
+3. **.NET 8 Runtime**: Required to run the application (or .NET 8 SDK to build).
 
 ## How to Build
-Since this project was generated on a non-Windows environment, you will need to copy the `UwfManager` folder to a Windows machine.
 
-1. Open `UwfManager.sln` in **Visual Studio 2022** (or later).
-2. Right-click the project `UwfManager` and select **Restore NuGet Packages** (if needed).
-3. Build the solution (Ctrl+Shift+B).
+### Using Command Line (Recommended)
+To create a self-contained single-file executable (easy to distribute):
 
-## How to Run
-1. Navigate to the build output folder (e.g., `bin\Debug\net8.0-windows`).
-2. Right-click `UwfManager.exe` and select **Run as Administrator**.
-   - *Important*: The app requires Admin privileges to interact with UWF commands.
-3. Use the GUI to check status and toggle the filter.
+```bash
+dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
+```
+The executable `UwfManager.exe` will be located in:
+`UwfManager\bin\Release\net8.0-windows\win-x64\publish\`
 
-## Troubleshooting
-- **"Failed to start uwfmgr"**: Ensure the UWF feature is installed on Windows.
-- **"Access Denied"**: Make sure you are running as Administrator.
-- **Status not updating**: Try restarting the application or the computer.
+### Using Visual Studio
+1. Open `UwfManager.sln` in **Visual Studio 2022+**.
+2. Build the solution (**Ctrl+Shift+B**).
+
+## Creating the Installer
+This project includes a setup script for **Inno Setup**.
+
+1. Download and install [Inno Setup](https://jrsoftware.org/isdl.php).
+2. Build the project using the "Command Line" instruction above.
+3. Open `setup.iss` with Inno Setup Compiler.
+4. Click **Compile**.
+5. The installer `UwfManagerSetup.exe` will be generated in the `Installer\` directory.
+
+## Usage
+1. Right-click `UwfManager.exe` (or the installed app shortcut) and **Run as Administrator**.
+2. The Status indicator shows if the system is currently **Locked** (Protected) or **Unlocked** (Editable).
+3. Click the toggle button to change the state.
+4. A system **Restart** is required for changes to take effect.
