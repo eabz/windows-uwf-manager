@@ -91,7 +91,8 @@ namespace UwfManager.Services
             catch (Exception ex)
             {
                 // Handle case where uwfmgr is not found (e.g. dev machine)
-                return $"Exception executing uwfmgr: {ex.Message}. (Is UWF installed?)";
+                // The most common error is "The system cannot find the file specified"
+                return $"Error executing uwfmgr: {ex.Message}.\n\n Troubleshooting:\n 1. Ensure Windows UWF feature is installed.\n 2. Ensure you are running as Administrator.";
             }
         }
     }

@@ -3,7 +3,7 @@
 
 #define MyAppName "Windows UWF Manager"
 #define MyAppVersion "1.0"
-#define MyAppPublisher "Eabz"
+#define MyAppPublisher "Enrique Berrueta"
 #define MyAppExeName "UwfManager.exe"
 
 [Setup]
@@ -14,6 +14,10 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
+AppPublisherURL=https://github.com/eabz/windows-uwf-manager
+AppSupportURL=https://github.com/eabz/windows-uwf-manager
+AppUpdatesURL=https://github.com/eabz/windows-uwf-manager
+AppCopyright=Copyright (C) 2026 Eabz Systems
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 ; Requires Admin to install into Program Files and to run the app
@@ -24,6 +28,8 @@ Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 SetupIconFile=UwfManager\Assets\logo.ico
+UninstallDisplayIcon={app}\UwfManager.exe
+UninstallDisplayName={#MyAppName}
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

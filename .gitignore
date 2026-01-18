@@ -27,6 +27,9 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# Installer
+Installer/
+
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 # Visual Studio 2019 cache/options directory
